@@ -10,6 +10,19 @@ function onOpen() {
     .addToUi();
 }
 
+function strip_xml(str) {
+    // Check if the input string is null or empty
+    if ((str === null) || (str === '')) {
+        // If so, return false
+        return false;
+    } else {
+        // If not, convert the input string to a string type
+        str = str.toString();
+    }
+    // Use a regular expression to replace all xml tags with an empty string
+    return str.replace(/<[^>]*>/g, '');
+}
+
 var text_guidelines = `
 Authoring guidelines
 - Use shorter words. Ex: also instead of additionally, about instead of approximately, but instead of however,
@@ -206,9 +219,9 @@ function testXML(){
 }
 
 function aiBlog(basePrompt) {
-  var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+  var selectedText = strip_xml(doc.getSelection().getRangeElements()[0].getElement().asText().getText())
   // Replace YOUR_API_KEY with your actual OpenAI API key
-  var apiKey = 'FIX_ME';
+  var apiKey = apiKey;
   var prompt = basePrompt + " " + selectedText;
 
   var model = "gpt-4-0125-preview"
@@ -248,9 +261,9 @@ function aiBlog(basePrompt) {
 }
 
 function aiBlogBox(basePrompt) {
-  var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+  var selectedText = strip_xml(doc.getSelection().getRangeElements()[0].getElement().asText().getText())
   // Replace YOUR_API_KEY with your actual OpenAI API key
-  var apiKey = 'FIX_ME';
+  var apiKey = apiKey;
   var prompt = basePrompt +" "+ selectedText;
 
   var model = "gpt-4-0125-preview"
